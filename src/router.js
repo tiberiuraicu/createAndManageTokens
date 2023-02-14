@@ -6,7 +6,7 @@ import HomePage from "./components/HomePage.vue";
 
 const router = createRouter({
   routes: [
-    { path: "/", component: HomePage },
+    { path: "/", component: HomePage, redirect: "/create" },
     { path: "/create", component: CreateTokens },
     { path: "/manage", name: "manage", component: EditTokens },
   ],

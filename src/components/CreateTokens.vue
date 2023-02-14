@@ -51,13 +51,21 @@ import { ethers } from "ethers";
 export default {
   data() {
     return {
-      factoryContract: "0x84db0126e01Fd5ed96DFB0973Bd3106C7eBCA14A",
       tokenContract: "",
       tokenName: "",
       tokenSymbol: "",
     };
   },
   methods: {
+    async getFactoryContract() {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const { chainId } = await provider.getNetwork();
+
+      if (chainId === 5) return "0xA19957583DaeD9DA82FE6c6b0b5D5b76A013b944";
+      else if (chainId === 137)
+        return "0xA19957583DaeD9DA82FE6c6b0b5D5b76A013b944";
+      else return "0x84db0126e01Fd5ed96DFB0973Bd3106C7eBCA14A";
+    },
     async getSigner() {
       let provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts");
@@ -68,7 +76,7 @@ export default {
       const signer = await this.getSigner();
 
       const factory = await new ethers.Contract(
-        this.factoryContract,
+        await this.getFactoryContract(),
         abiFactory.abi,
         signer
       );

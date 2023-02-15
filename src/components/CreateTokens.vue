@@ -74,6 +74,7 @@ export default {
       else {
         const provider = new WalletConnectProvider({
           rpc: {
+            137: "https://polygon-mainnet.g.alchemy.com/v2/rAKL_nklumf7Uicxi5BCq9rYd6DUsVMJ",
             5: "http://192.168.100.20:7545",
           },
         });

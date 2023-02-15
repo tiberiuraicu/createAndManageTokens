@@ -47,19 +47,8 @@
 <script>
 import abiFactory from "../ABI/abiFactory.json";
 import { ethers } from "ethers";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default {
-  // async created() {
-  //   const provider = new WalletConnectProvider({
-  //     rpc: {
-  //       1: "http://127.0.0.1:7545",
-  //     },
-  //   });
-
-  //   //  Enable session (triggers QR Code modal)
-  //   await provider.enable();
-  // },
   data() {
     return {
       tokenContract: "",
@@ -68,22 +57,6 @@ export default {
     };
   },
   methods: {
-    async getProvider() {
-      if (window.ethereum)
-        return new ethers.providers.Web3Provider(window.ethereum);
-      else {
-        const provider = new WalletConnectProvider({
-          rpc: {
-            137: "https://polygon-mainnet.g.alchemy.com/v2/rAKL_nklumf7Uicxi5BCq9rYd6DUsVMJ",
-            5: "http://192.168.100.20:7545",
-          },
-        });
-
-        //  Enable session (triggers QR Code modal)
-        await provider.enable();
-        return provider;
-      }
-    },
     async getFactoryContract() {
       let provider = await this.getProvider();
       const { chainId } = await provider.getNetwork();
